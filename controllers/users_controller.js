@@ -1,9 +1,31 @@
+const User = require('../models/user');
+
 module.exports.profile = function(req, res){
-  return  res.end('<h1>User profile</h1>');
+  return res.render('user_profile');
 };
+
+
+
+// render login page
 module.exports.login = function(req,res){
     return res.render('login');
 };
-module.exports.signup = function(req,res){
-  return res.render('signup');
+
+// render signup or register page
+module.exports.register = function(req,res){
+  return res.render('register');
 };
+
+// get the sign up data
+module.exports.create = function(req, res){
+    if(req.body.password != req.body.confirm_password){
+      return res.redirect('back');
+    }
+
+    
+}
+
+// sign in and create a session for the user
+module.exports.createSession = function(req, res){
+  // todo later
+}
