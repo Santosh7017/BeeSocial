@@ -1,9 +1,24 @@
 const User = require('../models/user');
-const db = require('../config/mongoose')
+const db = require('../config/mongoose');
+// const { response } = require('express');
 
 
 module.exports.profile = function(req, res){
-  return res.render('user_profile');
+  // return res.render('user_profile');
+
+  if(req.cookies.user_id){
+    User.findById(req.cookies.user_id,function(err,user){
+      if(user){
+          return res.render('user_profile',{
+            title:'user profile',
+            user:user
+          });
+      }
+      return res.redirect('/users/login');
+    });
+  }else{
+    return res.redirect('/users/login');
+  }
 };
 
 
@@ -48,5 +63,43 @@ module.exports.create = function(req, res){
 
 // sign in and create a session for the user
 module.exports.createSession = function(req, res){
-  // todo later
+
+  // console.log(req.body.email);
+  // console.log(req.body.password);
+  //* steps to autheticate
+  // find the user 
+  User.findOne({
+    email:req.body.email
+  },function(err,user){
+    if(err){
+      console.log('Error in creating user in signing in');
+      return;
+    }
+
+
+
+  //handle user found
+
+  if(user){
+
+     // handle password which don't match
+    if(user.password != req.body.password){
+      console.log(req.body.password);
+      return res.redirect('back');
+    }
+
+  // handle session creation
+res.cookie('user_id',user.id);
+return res.redirect('/users/profile');
+
+  // handle user not found
+  }else{
+    console.log(req.body.password);
+   
+    return res.redirect('back');
+  }
+
+});
+
+  
 }
