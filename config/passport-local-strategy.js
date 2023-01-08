@@ -13,7 +13,7 @@ function(email, password, done){
     // find a user and establish the identity
     User.findOne({email:email}, function(err, user){
 if(err){
-    console.log("error in finding user ")
+    console.log("error in finding user ");
     return done(err);
 }
     if(!user || user.password != password){
@@ -41,9 +41,28 @@ passport.deserializeUser(function(id,done){
     User.findById(function(err,user){
         if(err){
             console.log("Error in finding user");
-            return done(null,insta)
+            return done(null,user);
         }
+       return done(err,user);
     });
 });
+
+// check if the user is authenticated
+// passport.checkAuthentication = function(req, res, next){
+//     //  if the user is siged in then pass on the request to the next function(controller's action)
+//         if(req.isAuthenticated()){
+//         return next();
+//     }
+
+//     return res.redirect('/users/login');
+// }
+// passport.setAuthenticatedUser = function(req, res,next){
+//     if(req.isAuthenticated){
+//         // req.user contains the current signed in user from the session cookie and we are just sending this to the locals for the views
+//         res.locals.user = req.user;
+//     }
+// }
+
+module.exports = passport;
 
 
