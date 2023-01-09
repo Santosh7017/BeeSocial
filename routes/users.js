@@ -5,14 +5,14 @@ const passport = require('passport');
 const userController = require('../controllers/users_controller');
 const postController = require('../controllers/posts_controller');
 
-router.get('/profile',userController.profile);
+router.get('/profile',passport.checkAuthentication,userController.profile);
 router.get('/posts',postController.posts);
 router.get('/login',userController.login);
 router.get('/register',userController.register);
 router.post('/create',userController.create);
 
 // use passport as a middleware to authenticate
-router.post('/create-session',passport.authenticate(
+router.post('/login',passport.authenticate(
     'local',
     {failureRedirect:'/users/login',
     // successRedirect: '/'
