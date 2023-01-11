@@ -8,6 +8,7 @@ const session = require('express-session');
 const db = require('./config/mongoose');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo')(session);
 
 app.use(express.urlencoded());
 
@@ -22,7 +23,7 @@ app.use(express.static('.assets'));
 // setup the view engine
 app.set('view engine','ejs');
 app.set('views','./views');
-
+// mongo store is used to store the session cookie in the db
  app.use(session({
     name: 'BeeSocial',
     // todo change secret before deployment in production mode
@@ -31,7 +32,16 @@ app.set('views','./views');
     resave:false,
     cookie: {
         maxAge : (1000 * 60 * 100)
+    },
+        store: new MongoStore(
+    {
+    mongooseConnection:db,
+    autoRemove: 'disabled'
+    },
+    function(err){
+        console.log(err || 'connect-mongodb setup ok');
     }
+        )
  }));
 
   app.use(passport.initialize());
