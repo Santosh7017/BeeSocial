@@ -8,7 +8,8 @@ const session = require('express-session');
 const db = require('./config/mongoose');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
-const MongoStore = require('connect-mongo')(session);
+// const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 
 app.use(express.urlencoded());
 
@@ -33,15 +34,20 @@ app.set('views','./views');
     cookie: {
         maxAge : (1000 * 60 * 100)
     },
-        store: new MongoStore(
-    {
-    mongooseConnection:db,
-    autoRemove: 'disabled'
-    },
-    function(err){
-        console.log(err || 'connect-mongodb setup ok');
-    }
-        )
+    // store: new MongoStore(
+    //     {
+    //         mongooseConnection: db,
+    //         autoRemove: 'disabled'
+        
+    //     },
+    //     function(err){
+    //         console.log(err ||  'connect-mongodb setup ok');
+    //     }
+    // )
+    store: MongoStore.create(
+        {
+            mongoUrl: 'mongodb://localhost/BeeSocial'
+        })
  }));
 
   app.use(passport.initialize());

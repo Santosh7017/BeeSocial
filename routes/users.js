@@ -5,7 +5,7 @@ const passport = require('passport');
 const userController = require('../controllers/users_controller');
 const postController = require('../controllers/posts_controller');
 
-router.get('/profile',passport.checkAuthentication,userController.profile);
+router.get('/profile',passport.checkAuthentication,userController.profile);  // this will redirect to authentication page 
 router.get('/posts',postController.posts);
 router.get('/login',userController.login);
 router.get('/register',userController.register);
@@ -25,6 +25,8 @@ router.post('/login',passport.authenticate(
 // }
 userController.createSession
 );
+
+router.get('/logout',userController.destroySession);
 
 module.exports = router;
 
