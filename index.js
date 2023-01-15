@@ -29,7 +29,7 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 //  setting assets 
-app.use(express.static('.assets'));
+app.use(express.static('./assets'));
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
 app.set('layout extractStyles', true);
