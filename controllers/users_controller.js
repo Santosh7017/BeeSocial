@@ -15,14 +15,18 @@ module.exports.register = function (req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/users/profile');
   }
-  return res.render('register');
+  return res.render('register',{
+    title: 'Register'
+  });
 };
 // render login page
 module.exports.login = function (req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/users/profile');
   }
-  return res.render('login');
+  return res.render('login',{
+    title: 'Login'
+  });
 };
 
 

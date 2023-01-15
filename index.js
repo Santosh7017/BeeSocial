@@ -10,7 +10,19 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 // const MongoStore = require('connect-mongo')(session);
 const MongoStore = require('connect-mongo');
+const sassMiddleware = require('node-sass-middleware');
+const expressLayouts = require('express-ejs-layouts');
 
+
+
+app.use(sassMiddleware({
+    src:'./assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'expanded',
+    prefix: '/css'
+
+}));
 app.use(express.urlencoded());
 
 // setting cookie parser in middleware
@@ -18,6 +30,10 @@ app.use(cookieParser());
 
 //  setting assets 
 app.use(express.static('.assets'));
+app.use(expressLayouts);
+// extract style and scripts from sub pages into the layout
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
  
 
 
