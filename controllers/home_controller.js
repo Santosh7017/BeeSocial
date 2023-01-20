@@ -9,11 +9,20 @@ module.exports.home = function(req,res){
 
     // altering the value of cookie
     // res.cookie('user_id',25);
-    Post.find({},function(err, posts){
+
+
+    // Post.find({},function(err, posts){
+    //     return res.render('home',{
+    //         title:'BeeSocial | home',
+    //         posts: posts
+    // });
+   
+    // });
+        //  Populating the user of each posts
+    Post.find({}).populate('user').exec(function(err,posts){
         return res.render('home',{
             title:'BeeSocial | home',
             posts: posts
-    });
-   
+        });
     });
 }
