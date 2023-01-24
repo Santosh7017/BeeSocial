@@ -19,7 +19,12 @@ module.exports.home = function(req,res){
    
     // });
         //  Populating the user of each posts
-    Post.find({}).populate('user').exec(function(err,posts){
+    Post.find({})
+    .populate('user')
+    .populate({
+        path: 'comments'
+    })
+    .exec(function(err,posts){
         return res.render('home',{
             title:'BeeSocial | home',
             posts: posts
