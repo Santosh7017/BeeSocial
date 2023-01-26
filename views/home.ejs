@@ -18,7 +18,7 @@
     <a href="/users/logout">logout</a>
 </body>
 </html> -->
-<body>
+
     <h1>
         BeeSocial / <%= title %>
     </h1>
@@ -36,7 +36,7 @@
             <% for(post of posts){%>
                 <li>
                     <p>
-                        <% if(locals.user && locals.user.id) {  %>
+                        <% if(locals.user && locals.user.id == post.user.id) {  %>
                         <small>
                             <a href="/posts/destroy/<%= post.id %>">X</a>
                         </small>
@@ -58,6 +58,11 @@
                                 <ul id = "post-comments-<%= post._id%>">
                                     <%for(comment of post.comments){ %>
                                         <p>
+                                            <% if(locals.user && locals.user.id == comment.user.id) {  %>
+                                                <small>
+                                                    <a href="/comments/destroy/<%= comment.id %>">X</a>
+                                                </small>
+                                                <% }%>
                                             <%= comment.content%>
                                             <br>
                                             <small>
@@ -77,4 +82,4 @@
     </dic>
   </section>
 
-</body>
+
