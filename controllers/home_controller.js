@@ -19,15 +19,33 @@ module.exports.home = function(req,res){
    
     // });
         //  Populating the user of each posts
-    Post.find({})
-    .populate('user')
-    .populate({
-        path: 'comments'
-    })
-    .exec(function(err,posts){
-        return res.render('home',{
-            title:'BeeSocial | home',
-            posts: posts
-        });
-    });
+//     Post.find({})
+//     .populate('user')
+//     .populate({
+//         path: 'comments'
+//     })
+//     .exec(function(err,posts){
+//         return res.render('home',{
+//             title:'BeeSocial | home',
+//             posts: posts
+//         });
+//     });
+ // populate the user of each post
+ Post.find({})
+ .populate('user')
+ .populate({
+     path: 'comments',
+     populate: {
+         path: 'user'
+     }
+ })
+ .exec(function(err, posts){
+     return res.render('home', {
+         title: "Beesocial | Home",
+         posts:  posts
+     });
+ })
+
+
+
 }
