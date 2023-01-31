@@ -18,6 +18,7 @@ module.exports.profile = function(req, res){
     });
   }else{
     return res.redirect('/users/login');
+    
   }
 };
 
