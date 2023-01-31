@@ -5,12 +5,15 @@ const db = require('../config/mongoose');
 
 
 module.exports.profile = function (req, res) {
-
-  return res.render('user_profile',
+  User.findById(req.params.id, function(err, user){
+    return res.render('user_profile',
   {
-    title:"User's profile"
+    title:"User's profile",
+    profile_user: user
+  });    
   });
-};
+  
+}
 
 
 // render signup or register page
