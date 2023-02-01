@@ -6,6 +6,8 @@ const userController = require('../controllers/users_controller');
 const postController = require('../controllers/posts_controller');
 
 router.get('/profile/:id',passport.checkAuthentication,userController.profile);  // this will redirect to authentication page 
+router.post('/update/:id',passport.checkAuthentication,userController.update);
+
 // router.get('/posts',postController.posts);
 router.get('/login',userController.login);
 router.get('/register',userController.register);
