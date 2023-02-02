@@ -2,7 +2,7 @@ const Post = require('../models/post');
 const User = require('../models/user');
 // module.exports.actionName = function(req, res){};
 
-module.exports.home = function(req,res){
+module.exports.home = async function(req,res){
     // return res.end('<h1>Express is up for beesocial</h1>');
 
     // printing values of cookies
@@ -32,7 +32,12 @@ module.exports.home = function(req,res){
 //         });
 //     });
  // populate the user of each post
- Post.find({})
+
+//  tells the server that code contains asynchronous statements you need to wait with each asynchronous statement which have been marked ones one get executed then move to the next statement
+try {
+    
+
+ let posts = await Post.find({})
  .populate('user')
  .populate({
      path: 'comments',
@@ -40,15 +45,33 @@ module.exports.home = function(req,res){
          path: 'user'
      }
  })
- .exec(function(err, posts){
+//  .exec(function(err, posts){
 
-    User.find({},function(err, users){
-        return res.render('home', {
-            title: "Beesocial | Home",
-            posts:  posts,
-            all_users: users
-        });
+//     User.find({},function(err, users){
+//         return res.render('home', {
+//             title: "Beesocial | Home",
+//             posts:  posts,
+//             all_users: users
+//         });
 
+//     });
+//  });
+
+let users = await User.find({});
+
+    return res.render('home', {
+        title: "Beesocial | Home",
+        posts:  posts,
+        all_users: users
     });
- });
+
+} catch (error) {
+    console.log('Error', error);
 }
+}
+
+// this is using then
+// Post.find({}).populate('comments').then(function());
+
+// let posts = Post.find({}).populate('comments').exec(function());
+// posts.then();
