@@ -1,27 +1,6 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/user_profile.css">
-    <title>
-        <%= title %>
-    </title>
-</head>
-<body>
-    <header></header>
-    <h1>BeeSocial/ <%= title %></h1>
 
-    <a href="/users/login">Login</a>
-    <a href="/users/register">Register</a>
-    <a href="/users/logout">logout</a>
-</body>
-</html> -->
-
-    <h1>
-        BeeSocial / <%= title %>
-    </h1>
+<link rel="stylesheet" href="/css/home.css">
+<div id="home-container">
   <section id="feed-post">
     <h4>posts</h4>
     <% if(locals.user) {%>
@@ -48,5 +27,6 @@
         </p>
 <%}%>
   </section>
+</div>
 
 
