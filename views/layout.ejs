@@ -32,7 +32,8 @@
 
         <%- script %>
        
-
+        <script src="/js/jquery-3.6.1.js"></script>
+        <script src="/js/header.js"></script>
        <script>
             <% if (flash.success && flash.success.length > 0) {%>
                 new Noty({
@@ -56,5 +57,6 @@
                 }).show();    
             <%} %>
         </script>
+
     </body>
 </html>
