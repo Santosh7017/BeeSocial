@@ -34,11 +34,14 @@ module.exports.create = async function(req, res){
         // handle err
         post.comments.push(comment);
         post.save();
+        req.flash('success', 'Comment added on the post!');
         res.redirect('/');
     }
 
 } catch (error) {
         console.log('Error', error);
+        req.flash('error', 'Comment cannot be added!');
+        res.redirect('/');
 }
 
 }
@@ -86,8 +89,10 @@ module.exports.destroy = async function(req, res){
         comment.remove();
 
        let post =  Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}});
+       req.flash('success', 'Comment removed from post!');
        return res.redirect('back');
     }else{
+        req.flash('error', 'comment cannot be deleted');
         return res.redirect('back');
     }
 } catch (error) {
