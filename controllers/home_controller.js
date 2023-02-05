@@ -36,15 +36,15 @@ module.exports.home = async function(req,res){
 //  tells the server that code contains asynchronous statements you need to wait with each asynchronous statement which have been marked ones one get executed then move to the next statement
 try {
     
-
  let posts = await Post.find({})
+ .sort('-createdAt')
  .populate('user')
  .populate({
      path: 'comments',
      populate: {
          path: 'user'
      }
- })
+ });
 //  .exec(function(err, posts){
 
 //     User.find({},function(err, users){
