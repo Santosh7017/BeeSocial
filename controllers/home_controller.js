@@ -58,7 +58,6 @@ try {
 //  });
 
 let users = await User.find({});
-
     return res.render('home', {
         title: "Beesocial | Home",
         posts:  posts,
@@ -75,3 +74,6 @@ let users = await User.find({});
 
 // let posts = Post.find({}).populate('comments').exec(function());
 // posts.then();
+
+//todo display notifications -noty
+//todo add/delet comments -> ajax
