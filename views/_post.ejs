@@ -12,10 +12,10 @@
     </p>
     <div class="post-comments">
         <% if(locals.user){%>
-            <form action="/comments/create" method="POST">
+            <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="POST">
                 <input type="text" name="content" placeholder="Type here to add Comments" id="" required>
                 <input type="hidden" name="post" value="<%= post._id %>">
-                <input type="submit" name="" value="Post">
+                <input type="submit" name="" value="Post" >
             </form>
             <%}%>
             <div class="post-comments-list">
