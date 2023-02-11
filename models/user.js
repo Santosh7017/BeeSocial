@@ -16,11 +16,28 @@ const userSchema = new mongoose.Schema({
     name:{
         type: String,
         required:true
+    },
+    avatar:{
+        type: String
     }
 },
 {
     timstamps:true 
 });
+//Configuration for Multer
+let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, path.join(__dirname, '..', AVATAR_PATH)); 
+    },
+    filename: (req, file, cb) => {
+     
+      cb(null, file.filename + '-' + Date.now);
+    },
+  });
 
+  // static methods
+  userSchema.statics.uploadedAvatar = multer({storage: storage}).single('avatar');
+  // for make publically available 
+  userSchema.statics.avatarPath = AVATAR_PATH;
 const User = mongoose.model('User', userSchema);
 module.exports = User;
