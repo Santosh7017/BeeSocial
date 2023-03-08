@@ -1,0 +1,13 @@
+Mailer services -
+Mails + Delayed Jobs
+SMTP- Simple mail transfer protocol
+ssl - secure socket layer
+tls - tranport layer security
+Modules- 
+1. NodeMailer
+2. config
+3. Mailer file - function to send mail
+4. Templates
+
+transporter define the config using which we sending emails
+then send using some templates
