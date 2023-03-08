@@ -5,10 +5,10 @@ let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
     port:587,
-    secure: false,
+    secure: true,
     auth: {
         user: 'smorya994@gmail.com',
-        pass: 'Santosh123$'
+        pass: 'nnzuteqtodfeuifh'
     }
 });
 let renderTemplate= (data, relativePath) => {
@@ -29,4 +29,4 @@ let renderTemplate= (data, relativePath) => {
 module.exports = {
     transporter: transporter,
     renderTemplate: renderTemplate
-}
+}  
