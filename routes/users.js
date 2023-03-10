@@ -12,6 +12,8 @@ router.post('/update/:id',passport.checkAuthentication,userController.update);
 router.get('/login',userController.login);
 router.get('/register',userController.register);
 router.post('/create',userController.create);
+router.get('/reset-password',userController.resetPassword);
+router.post('/reset-password',userController.resetPassword);
 
 // use passport as a middleware to authenticate
 router.post('/login',passport.authenticate(
