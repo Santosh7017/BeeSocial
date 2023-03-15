@@ -2,6 +2,11 @@ const User = require('../models/user');
 const db = require('../config/mongoose');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const ResetPassToken = require('../models/reset_pass');
+const queue = require('../config/kue');
+const resetPasswordWorker = require('../workers/reset_password_worker');
 
 
 
@@ -145,3 +150,48 @@ module.exports.destroySession = function(req, res){
 });
 
 }
+module.exports.forgotpassword = function (req, res) {
+  return res.render('forgotpassword',{
+    title: 'Forgot Password'
+  });
+};
+module.exports.verifyToken = async function (req, res) {
+  // get email from form
+  const email = req.body.email;
+  // check if email exists
+    try {
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        req.flash('error', 'Email does not exist');
+        return res.redirect('back');
+      }
+      // generate token
+      const accessToken = crypto.randomBytes(20).toString('hex');
+      // set token to user
+        const token = await ResetPassToken.create({ 
+          user:user._id,
+          accessToken: accessToken,
+          isValid: true
+        });
+        // send email
+        const myToken = await token.populate('user','name email');
+        let job =  queue.create('resetPassword', myToken).save(function(err){
+          if(err){
+            console.log('Error in sending to the queue', err);
+            return;
+          }
+          // console.log('job enqueued', job.id);
+            
+        });
+        req.flash('success', 'Email has been sent, kindly check your inbox');
+        return res.redirect('back');
+
+
+    } catch (error) {
+      req.flash('error', 'Error in sending email');
+      console.log('Error in sending email', error);
+      return res.redirect('back');
+    }
+}
+
+
