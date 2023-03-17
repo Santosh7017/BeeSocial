@@ -194,4 +194,65 @@ module.exports.verifyToken = async function (req, res) {
     }
 }
 
+module.exports.resetPassword = async function (req, res){
+  // get token from url using params
+    const token = req.query.token;
+    // console.log('This is accessToken',token);
+    // check if token exists
 
+    try{
+      // if token exists
+        if(token){
+          // find token
+            const tokenFound = await ResetPassToken.findOne({'accessToken': token});
+            // if token found and check for validation
+            if(tokenFound && tokenFound.isValid){
+              // redirect to reset password page with the titke reset password
+                return res.render('resetPassword.ejs',{
+                    title: 'Reset Password',
+                    accessToken: token
+                });
+                // otherwise redirect to forgot password page
+            }else{
+              req.flash('error', "Token not found");
+              return res.redirect('forgotpassword');
+            }
+        }
+    }catch(err){
+      console.log('Error in finding token', err);
+      return;
+    }
+ 
+}
+
+  module.exports.updatePass = async function(req, res){
+    const password = req.body.newPass;
+    const confirm_password = req.body.confPass;
+      if(password != confirm_password){
+        req.flash('error', "Password does not match");
+        return res.redirect('back');
+      }
+      // get token from body
+      try {
+        const token = req.body.accessToken;
+        let accessToken = await ResetPassToken.findOne({accessToken: token});
+        if(accessToken && accessToken.isValid){
+          let user = await User.findById(accessToken.user);
+          user.password = password;
+          await user.save();
+          accessToken.remove();
+
+          req.flash('success', "Password updated successfully");
+          return res.redirect('/users/login');
+
+        }else{
+          req.flash('error', "Token not found");
+          return res.redirect('back');
+        }
+
+      } catch (error) {
+          req.flash('error', "Error in updating password");
+          console.log('Error in updating password', error);
+          return res.redirect('back');
+      } 
+  }

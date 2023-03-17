@@ -14,6 +14,8 @@ router.get('/register',userController.register);
 router.post('/create',userController.create);
 router.get('/forgotpassword',userController.forgotpassword);
 router.post('/verifytoken',userController.verifyToken);
+router.get('/resetpassword',userController.resetPassword);
+router.post('/updatePass', userController.updatePass)
 
 // use passport as a middleware to authenticate
 router.post('/login',passport.authenticate(
