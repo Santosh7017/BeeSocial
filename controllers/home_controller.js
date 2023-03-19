@@ -43,8 +43,11 @@ try {
      path: 'comments',
      populate: {
          path: 'user'
+     },
+     populate:{
+            path: 'likes'
      }
- });
+ }).populate('likes');
 //  .exec(function(err, posts){
 
 //     User.find({},function(err, users){
