@@ -42,7 +42,10 @@ module.exports.home = async function (req, res) {
                 populate: {
                     path: "user",
                 },
-            });
+                populate:{
+                    path: 'user'
+                }
+            }).populate('likes');
         //  .exec(function(err, posts){
 
         //     User.find({},function(err, users){
