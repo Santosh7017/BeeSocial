@@ -69,6 +69,14 @@ class PostComments{
                             <small>
                                 ${comment.user.name}
                             </small>
+                            <br>
+                            <small>
+                            
+                                <a href="/likes/toggle/?id=${ comment._id }&type=Comment " class="toggle-like-button" data-likes="<%= comment.likes.length%>">
+                                    0 Likes
+                                </a>
+                                
+                        </small>
                         </p>    
 
                 </li>`);
