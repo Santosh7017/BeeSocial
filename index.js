@@ -1,7 +1,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 3000;
+require('dotenv').config();
+const port = process.env.port;
 // const expressLayouts = require('express-ejs-layouts');
 // usec for session and cookie and for authentication
 const session = require('express-session');
@@ -52,7 +53,7 @@ app.set('views','./views');
  app.use(session({
     name: 'BeeSocial',
     // todo change secret before deployment in production mode
-    secret: 'blahsomething',
+    secret: process.env.sessionSecret,
     saveUninitialized: false,
     resave:false,
     cookie: {
