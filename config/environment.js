@@ -26,8 +26,8 @@ const development = {
     
     name : 'development' ,
     asset_path : './assets',
-    session_cookie_key : 'blahblah',
-    db : 'codial_development', //here we add the db name
+    session_cookie_key : 'pywcki45ZN32YlLhDec1T56NOsYo1hJF',
+    db : 'BeeSocial', //here we add the db name
     smtp :{
 
         service: 'gmail',
