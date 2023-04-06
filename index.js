@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const env = require('./config/environment');
 const logger = require('morgan');
+require('./config/view-helpers')(app);
 
 require('dotenv').config();
 const port = process.env.port;
