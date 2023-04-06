@@ -1,0 +1,9 @@
+[0mGET / [36m304[0m 51.797 ms - -[0m
+[0mGET /users/profile/63b4b4aad141d4be7f1705e0 [36m304[0m 10.811 ms - -[0m
+[0mGET /users/logout [36m302[0m 15.290 ms - 46[0m
+[0mGET / [32m200[0m 42.106 ms - 15711[0m
+[0mGET /users/login [32m200[0m 14.946 ms - 6015[0m
+[0mGET /users/style/login.css [33m404[0m 5.277 ms - 160[0m
+[0mGET /users/style/login.css [33m404[0m 3.700 ms - 160[0m
+[0mPOST /users/login [36m302[0m 11.019 ms - 46[0m
+[0mGET / [32m200[0m 38.056 ms - 25832[0m

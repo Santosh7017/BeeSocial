@@ -1,8 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
+const env = require('./config/environment');
+const logger = require('morgan');
+
 require('dotenv').config();
 const port = process.env.port;
+const path = require('path');
 // const expressLayouts = require('express-ejs-layouts');
 // usec for session and cookie and for authentication
 const session = require('express-session');
@@ -17,18 +21,22 @@ const sassMiddleware = require('node-sass-middleware');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+const environment = require('./config/environment');
 
 
 
-
+if(environment.name == 'development'){
 app.use(sassMiddleware({
-    src:'./assets/scss',
-    dest: './assets/css',
+    // src:'./assets/scss',
+    // dest: './assets/css',
+    src: path.join(__dirname, environment.asset_path, 'scss'),
+    dest: path.join(__dirname, environment.asset_path, 'scss'),
     debug: true,
     outputStyle: 'expanded',
     prefix: '/css'
 
 }));
+}
 // app.use(express.urlencoded());
 app.use(express.urlencoded({ extended: true }));
 
@@ -39,6 +47,11 @@ app.use(cookieParser());
 app.use(express.static('./assets'));
 // make the uploads path available to browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
+
+app.use(logger(env.morgan.mode, env.morgan.options));
+// app.use(logger(environment.morgan.mode, environment.morgan.options));
+
+
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
 app.set('layout extractStyles', true);
