@@ -25,13 +25,15 @@ const customMware = require('./config/middleware');
 const environment = require('./config/environment');
 
 
+// console.log(app.locals.assetPath('css/layout.css'));
+
 
 if(environment.name == 'development'){
 app.use(sassMiddleware({
     // src:'./assets/scss',
     // dest: './assets/css',
     src: path.join(__dirname, environment.asset_path, 'scss'),
-    dest: path.join(__dirname, environment.asset_path, 'scss'),
+    dest: path.join(__dirname, environment.asset_path, 'css'),
     debug: true,
     outputStyle: 'expanded',
     prefix: '/css'
@@ -45,7 +47,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //  setting assets 
-app.use(express.static('./assets'));
+// app.use(express.static('./assets'));
+app.use(express.static(environment.asset_path));
 // make the uploads path available to browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
 

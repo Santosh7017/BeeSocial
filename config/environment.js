@@ -64,7 +64,7 @@ const development = {
 const production = {
     //we need to add the production variables here
     // name : process.env.CODIAL_ENVIRONMENT, 
-    name: process.env.BEESOCIAL_ENVIRONMENT,
+    name: 'production',
     asset_path: process.env.BEESOCIAL_ASSET_PATH,
     session_cookie_key: process.env.BEESOCIAL_SESSION_COOKIE_KEY, //using random key gen .com
     db: process.env.BEESOCIAL_DB, //here we add the db name
@@ -93,4 +93,5 @@ const production = {
 
 //we choose what needs to be exported 
 module.exports = eval(process.env.BEESOCIAL_ENVIRONMENT) == undefined ? development : eval(process.env.BEESOCIAL_ENVIRONMENT);
+// module.exports = development;
 // module.exports = development;
