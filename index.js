@@ -6,7 +6,7 @@ const logger = require('morgan');
 require('./config/view-helpers')(app);
 
 require('dotenv').config();
-const port = process.env.port;
+const port = 8000;
 const path = require('path');
 // const expressLayouts = require('express-ejs-layouts');
 // usec for session and cookie and for authentication
