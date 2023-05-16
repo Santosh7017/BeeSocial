@@ -41,7 +41,7 @@ app.use(sassMiddleware({
 }));
 }
 // app.use(express.urlencoded());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 // setting cookie parser in middleware
 app.use(cookieParser());
@@ -67,7 +67,7 @@ app.set('layout extractScripts', true);
 app.set('view engine','ejs');
 app.set('views','./views');
 // mongo store is used to store the session cookie in the db
- app.use(session({
+app.use(session({
     name: 'BeeSocial',
     // todo change secret before deployment in production mode
     secret: process.env.sessionSecret,
@@ -75,17 +75,8 @@ app.set('views','./views');
     resave:false,
     cookie: {
         maxAge : (1000 * 60 * 100)
-    },
-    // store: new MongoStore(
-    //     {
-    //         mongooseConnection: db,
-    //         autoRemove: 'disabled'
-        
-    //     },
-    //     function(err){
-    //         console.log(err ||  'connect-mongodb setup ok');
-    //     }
-    // )
+     },
+   
     store: MongoStore.create(
         {
             mongoUrl: 'mongodb://localhost/BeeSocial'
