@@ -1,7 +1,13 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 3000;
+const env = require('./config/environment');
+const logger = require('morgan');
+require('./config/view-helpers')(app);
+
+require('dotenv').config();
+const port = 8000;
+const path = require('path');
 // const expressLayouts = require('express-ejs-layouts');
 // usec for session and cookie and for authentication
 const session = require('express-session');
@@ -16,28 +22,40 @@ const sassMiddleware = require('node-sass-middleware');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+const environment = require('./config/environment');
 
 
+// console.log(app.locals.assetPath('css/layout.css'));
 
 
+if(environment.name == 'development'){
 app.use(sassMiddleware({
-    src:'./assets/scss',
-    dest: './assets/css',
+    // src:'./assets/scss',
+    // dest: './assets/css',
+    src: path.join(__dirname, environment.asset_path, 'scss'),
+    dest: path.join(__dirname, environment.asset_path, 'css'),
     debug: true,
     outputStyle: 'expanded',
     prefix: '/css'
 
 }));
+}
 // app.use(express.urlencoded());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 // setting cookie parser in middleware
 app.use(cookieParser());
 
 //  setting assets 
-app.use(express.static('./assets'));
+// app.use(express.static('./assets'));
+app.use(express.static(environment.asset_path));
 // make the uploads path available to browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
+
+app.use(logger(env.morgan.mode, env.morgan.options));
+// app.use(logger(environment.morgan.mode, environment.morgan.options));
+
+
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
 app.set('layout extractStyles', true);
@@ -49,25 +67,16 @@ app.set('layout extractScripts', true);
 app.set('view engine','ejs');
 app.set('views','./views');
 // mongo store is used to store the session cookie in the db
- app.use(session({
+app.use(session({
     name: 'BeeSocial',
     // todo change secret before deployment in production mode
-    secret: 'blahsomething',
+    secret: process.env.sessionSecret,
     saveUninitialized: false,
     resave:false,
     cookie: {
         maxAge : (1000 * 60 * 100)
-    },
-    // store: new MongoStore(
-    //     {
-    //         mongooseConnection: db,
-    //         autoRemove: 'disabled'
-        
-    //     },
-    //     function(err){
-    //         console.log(err ||  'connect-mongodb setup ok');
-    //     }
-    // )
+     },
+   
     store: MongoStore.create(
         {
             mongoUrl: 'mongodb://localhost/BeeSocial'

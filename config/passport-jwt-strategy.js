@@ -15,7 +15,7 @@ const User = require('../models/user');
 // updated passport sectino for v3 or above
 var opts = {};
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'beesocial';
+opts.secretOrKey = process.env.BEESOCIAL_JWT_SECRET;
 // call back function read data from the payload which contains the information
 passport.use(new JWTStrategy(opts, function(JWTPayLoad, done){
     User.findById(JWTPayLoad._id, function(err, user){
