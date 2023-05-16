@@ -3,3 +3,4 @@ redis-stable
 .env
 BeeSocial-Prod.pem
 client_secret_228605161665-mrmnseik6dj29t0atc9i3mtjskgshnv9.apps.googleusercontent.com.json
+production_logs
