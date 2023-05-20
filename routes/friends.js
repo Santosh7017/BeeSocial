@@ -3,5 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 
 const friendsController = require('../controllers/friends_controller');
-router.get('/toggle',passport.checkAuthentication,friendsController.toggleUser);
+// router.get('/toggle/',passport.checkAuthentication,friendsController.toggleUser);
+router.get('/toggle/'  ,friendsController.toggleUser); 
 module.exports = router;

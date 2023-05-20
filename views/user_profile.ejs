@@ -1,5 +1,5 @@
 <!-- <link rel="stylesheet" href="/css/user_profile.css"> -->
-
+<main>
 <img src="<%= profile_user.avatar %>" alt="<%= profile_user.name %>" width="100">
         <% if(user.id == profile_user.id){ %>
             <!-- if user matches then show the form -->
@@ -14,4 +14,18 @@
             <!-- else show only the profile info -->
             <p><%= profile_user.name %></p>
             <p><%= profile_user.email %></p>
+            <a href="/friendships/toggle/?userId=<%=profile_user.id%>" id="friend-toggle">
+                <button id="friend-toggle-button">
+                    <% if (isFriend) {%>
+                        <%= "Remove Friend" %>
+                    <% } else {%>
+                        <%= "Add Friend" %>
+                    <% } %>
+                </button>
+            </a>
         <%} %>
+    </main>
+    <!-- <script type="application/javascript" src="<%= assetPath('js/jquery-3.6.1.js')%>" ></script>
+        <script type="application/javascript" src="<%= assetPath('js/user_profile.js')%>" ></script> -->
+        
+        <!-- <script src="<%= 'js/jquery-3.6.1.js' %>"></script> -->
