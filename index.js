@@ -24,8 +24,23 @@ const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const environment = require('./config/environment');
 
+// setup the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+const cors = require('cors');
+// const io = require("socket.io")(chatServer, {
+//     cors: {
+//       origin: "http://localhost:8000",
+//     },
+//   });
+
+// app.use(cors());
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
+
 
 // console.log(app.locals.assetPath('css/layout.css'));
+
 
 
 if(environment.name == 'development'){
