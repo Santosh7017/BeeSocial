@@ -34,7 +34,7 @@ app.use(sassMiddleware({
     // dest: './assets/css',
     src: path.join(__dirname, environment.asset_path, 'scss'),
     dest: path.join(__dirname, environment.asset_path, 'css'),
-    debug: true,
+    debug: false,
     outputStyle: 'expanded',
     prefix: '/css'
 

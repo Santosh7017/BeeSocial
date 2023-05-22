@@ -9,6 +9,7 @@
   padding: 5px;
   box-shadow: 1px 1px 1px 1px black;
   transition: height 1s ease-in-out;
+  z-index: 1000;
 }
 
 .chat-box-wrapper .chat-box-header {
